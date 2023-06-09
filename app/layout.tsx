@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Moving Dots",
-  description: "We make dots moving.",
+  description: "Moving dots on the internet.",
 };
 
 export default function RootLayout({
