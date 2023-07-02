@@ -16,14 +16,14 @@ export default function Home() {
       canvas: canvasRef.current || undefined,
       options: {
         // How can I make this canvas 100% width and height?
-        background: "transparent",
+        background: "red",
         wireframes: false,
       },
     });
 
     const distance = 40; // distance between dots
-    const margin = 64; // margin around the canvas
     const dotRadius = 4; // radius of each dot
+    const margin = 64 + dotRadius / 2; // margin around the canvas
 
     let balls: Matter.Body[] = [];
     const ballRadius = 10; // radius of each ball
@@ -53,57 +53,60 @@ export default function Home() {
       render.canvas.width = window.innerWidth;
       render.canvas.height = window.innerHeight;
 
+      // Removing everything and then adding it again doesn't feel like a great way to handle resize
+      // Find a better way to remove while resizing
+      // for (let i = 0; i < engine.world.bodies.length; i++) {
+      //   const body = engine.world.bodies[i];
+      //   console.log(body.label);
+      //   if (body.label === "Circle Body") {
+      //     Matter.World.remove(engine.world, body);
+      //   }
+      // }
+
       const gridWidth = window.innerWidth - margin * 2; // width of the grid
       const gridHeight = window.innerHeight - margin * 2; // height of the grid
-      let numDotsX = Math.floor(gridWidth / (distance + dotRadius));
-      let numDotsY = Math.floor(gridHeight / (distance + dotRadius));
 
-      // console.log(window.innerWidth, window.innerHeight);
-      // console.log(gridWidth, gridHeight);
-      // console.log(numDotsX, numDotsY);
+      let numDotsX = Math.floor(gridWidth / distance);
+      let numDotsY = Math.floor(gridHeight / distance);
 
-      const startX = 0; // starting x position
-      const startY = 0; // starting y position
+      const fakeGrid = Matter.Bodies.rectangle(
+        gridWidth / 2 + margin,
+        gridHeight / 2 + margin,
+        gridWidth,
+        gridHeight,
+        {
+          isStatic: true,
+          render: {
+            opacity: 0.6,
+            fillStyle: "blue",
+          },
+        }
+      );
+
+      Matter.World.add(engine.world, fakeGrid);
 
       // Create background grid of dots
-      for (let y = startY; y < numDotsY * distance; y += distance) {
-        const startXOffset = y % (distance * 2) === 0 ? 0 : distance / 2;
-        const dotStartX = startX + startXOffset;
+      for (let y = 0; y < numDotsY + 1; y++) {
+        const numDotsXModulo = y % 2 ? numDotsX : numDotsX + 1;
 
-        console.log(y, dotStartX);
+        for (let x = 0; x < numDotsXModulo; x++) {
+          let xPos = x === 0 ? margin : x * (gridWidth / numDotsX) + margin;
+          if (y % 2) xPos += distance / 2;
 
-        for (let x = dotStartX; x < numDotsX * distance; x += distance) {
-          const dot = Matter.Bodies.circle(x, y, dotRadius, {
-            isStatic: true,
-            render: {
-              fillStyle: "#E2E2E2",
-            },
-          });
-          Matter.World.add(engine.world, dot);
-        }
-      }
+          const yPos = y === 0 ? margin : y * (gridHeight / numDotsY) + margin;
 
-      // Removing everything and then adding it again doesn't feel like a great way to handle resize
-      for (let i = 0; i < engine.world.bodies.length; i++) {
-        const body = engine.world.bodies[i];
-        if (body.label === "Circle Body") {
-          Matter.World.remove(engine.world, body);
-        }
-      }
+          const dot = Matter.Bodies.circle(
+            Math.ceil(xPos),
+            Math.ceil(yPos),
+            dotRadius,
+            {
+              isStatic: true,
+              render: {
+                fillStyle: "#E2E2E2",
+              },
+            }
+          );
 
-      for (let y = startY; y < numDotsY * distance; y += distance) {
-        const startXOffset = y % (distance * 2) === 0 ? 0 : distance / 2;
-        for (
-          let x = startX + startXOffset;
-          x < numDotsX * distance;
-          x += distance
-        ) {
-          const dot = Matter.Bodies.circle(x, y, dotRadius, {
-            isStatic: true,
-            render: {
-              fillStyle: "#E2E2E2",
-            },
-          });
           Matter.World.add(engine.world, dot);
         }
       }
