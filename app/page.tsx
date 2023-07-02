@@ -21,31 +21,9 @@ export default function Home() {
       },
     });
 
-    const distance = 38; // distance between dots
+    const distance = 40; // distance between dots
+    const margin = 64; // margin around the canvas
     const dotRadius = 4; // radius of each dot
-    let numDotsX = Math.ceil(window.innerWidth / distance);
-    let numDotsY = Math.ceil(window.innerHeight / distance);
-
-    const startX = 0; // starting x position
-    const startY = 0; // starting y position
-
-    // Create background grid of dots
-    for (let y = startY; y < numDotsY * distance; y += distance) {
-      const startXOffset = y % (distance * 2) === 0 ? 0 : distance / 2;
-      for (
-        let x = startX + startXOffset;
-        x < numDotsX * distance;
-        x += distance
-      ) {
-        const dot = Matter.Bodies.circle(x, y, dotRadius, {
-          isStatic: true,
-          render: {
-            fillStyle: "#E2E2E2",
-          },
-        });
-        Matter.World.add(engine.world, dot);
-      }
-    }
 
     let balls: Matter.Body[] = [];
     const ballRadius = 10; // radius of each ball
@@ -68,7 +46,6 @@ export default function Home() {
     Matter.Render.run(render);
 
     const resizeHandler = () => {
-      console.log("resize");
       render.bounds.max.x = window.innerWidth;
       render.bounds.max.y = window.innerHeight;
       render.options.width = window.innerWidth;
@@ -76,8 +53,35 @@ export default function Home() {
       render.canvas.width = window.innerWidth;
       render.canvas.height = window.innerHeight;
 
-      numDotsX = Math.ceil(window.innerWidth / distance);
-      numDotsY = Math.ceil(window.innerHeight / distance);
+      const gridWidth = window.innerWidth - margin * 2; // width of the grid
+      const gridHeight = window.innerHeight - margin * 2; // height of the grid
+      let numDotsX = Math.floor(gridWidth / (distance + dotRadius));
+      let numDotsY = Math.floor(gridHeight / (distance + dotRadius));
+
+      // console.log(window.innerWidth, window.innerHeight);
+      // console.log(gridWidth, gridHeight);
+      // console.log(numDotsX, numDotsY);
+
+      const startX = 0; // starting x position
+      const startY = 0; // starting y position
+
+      // Create background grid of dots
+      for (let y = startY; y < numDotsY * distance; y += distance) {
+        const startXOffset = y % (distance * 2) === 0 ? 0 : distance / 2;
+        const dotStartX = startX + startXOffset;
+
+        console.log(y, dotStartX);
+
+        for (let x = dotStartX; x < numDotsX * distance; x += distance) {
+          const dot = Matter.Bodies.circle(x, y, dotRadius, {
+            isStatic: true,
+            render: {
+              fillStyle: "#E2E2E2",
+            },
+          });
+          Matter.World.add(engine.world, dot);
+        }
+      }
 
       // Removing everything and then adding it again doesn't feel like a great way to handle resize
       for (let i = 0; i < engine.world.bodies.length; i++) {
