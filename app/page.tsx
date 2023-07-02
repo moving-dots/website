@@ -4,14 +4,15 @@ import React, { useLayoutEffect, useRef } from "react";
 import Matter from "matter-js";
 
 export default function Home() {
-  const boxRef = useRef(null);
-  const canvasRef = useRef(null);
+  const boxRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useLayoutEffect(() => {
     let Engine = Matter.Engine;
     let Render = Matter.Render;
     let World = Matter.World;
     let Bodies = Matter.Bodies;
+    let Runner = Matter.Runner;
 
     let engine = Engine.create({});
 
@@ -23,13 +24,6 @@ export default function Home() {
         // How can I make this canvas 100% width and height?
         background: "transparent",
         wireframes: false,
-      },
-    });
-
-    const floor = Bodies.rectangle(150, 600, 800, 20, {
-      isStatic: true,
-      render: {
-        fillStyle: "blue",
       },
     });
 
@@ -99,7 +93,7 @@ export default function Home() {
     }
 
     World.add(engine.world, balls);
-    Engine.run(engine);
+    Runner.run(engine);
     Render.run(render);
 
     const resizeHandler = () => {
