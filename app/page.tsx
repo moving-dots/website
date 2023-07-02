@@ -8,15 +8,9 @@ export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useLayoutEffect(() => {
-    let Engine = Matter.Engine;
-    let Render = Matter.Render;
-    let World = Matter.World;
-    let Bodies = Matter.Bodies;
-    let Runner = Matter.Runner;
+    let engine = Matter.Engine.create({});
 
-    let engine = Engine.create({});
-
-    let render = Render.create({
+    let render = Matter.Render.create({
       element: boxRef.current || undefined,
       engine: engine,
       canvas: canvasRef.current || undefined,
@@ -28,13 +22,14 @@ export default function Home() {
     });
 
     const distance = 38; // distance between dots
-    const radius = 4; // radius of each dot
+    const dotRadius = 4; // radius of each dot
     let numDotsX = Math.ceil(window.innerWidth / distance);
     let numDotsY = Math.ceil(window.innerHeight / distance);
 
     const startX = 0; // starting x position
     const startY = 0; // starting y position
 
+    // Create background grid of dots
     for (let y = startY; y < numDotsY * distance; y += distance) {
       const startXOffset = y % (distance * 2) === 0 ? 0 : distance / 2;
       for (
@@ -42,18 +37,19 @@ export default function Home() {
         x < numDotsX * distance;
         x += distance
       ) {
-        const dot = Bodies.circle(x, y, radius, {
+        const dot = Matter.Bodies.circle(x, y, dotRadius, {
           isStatic: true,
           render: {
             fillStyle: "#E2E2E2",
           },
         });
-        World.add(engine.world, dot);
+        Matter.World.add(engine.world, dot);
       }
     }
 
-    const ballradius = 10; // radius of each ball
-    const ballcolors = [
+    let balls: Matter.Body[] = [];
+    const ballRadius = 10; // radius of each ball
+    const ballColors = [
       "#0444C1",
       "#FF4B4B",
       "#2DE32A",
@@ -67,34 +63,9 @@ export default function Home() {
       "#6FF2A4",
       "#3CD3E8",
     ];
-    let balls: Matter.Body[] = [];
 
-    for (let y = startY; y < numDotsY * distance; y += distance) {
-      const startXOffset = y % (distance * 2) === 0 ? 0 : distance / 2;
-      for (
-        let x = startX + startXOffset;
-        x < numDotsX * distance;
-        x += distance
-      ) {
-        const ball = Bodies.circle(
-          Math.random() * window.innerWidth,
-          Math.random() * window.innerHeight,
-          ballradius,
-          {
-            restitution: 0.9,
-            render: {
-              fillStyle:
-                ballcolors[Math.floor(Math.random() * ballcolors.length)],
-            },
-          }
-        );
-        balls.push(ball);
-      }
-    }
-
-    World.add(engine.world, balls);
-    Runner.run(engine);
-    Render.run(render);
+    Matter.Runner.run(engine);
+    Matter.Render.run(render);
 
     const resizeHandler = () => {
       console.log("resize");
@@ -112,7 +83,7 @@ export default function Home() {
       for (let i = 0; i < engine.world.bodies.length; i++) {
         const body = engine.world.bodies[i];
         if (body.label === "Circle Body") {
-          World.remove(engine.world, body);
+          Matter.World.remove(engine.world, body);
         }
       }
 
@@ -123,13 +94,13 @@ export default function Home() {
           x < numDotsX * distance;
           x += distance
         ) {
-          const dot = Bodies.circle(x, y, radius, {
+          const dot = Matter.Bodies.circle(x, y, dotRadius, {
             isStatic: true,
             render: {
               fillStyle: "#E2E2E2",
             },
           });
-          World.add(engine.world, dot);
+          Matter.World.add(engine.world, dot);
         }
       }
 
@@ -151,25 +122,27 @@ export default function Home() {
 
     // Generate new balls
     setInterval(() => {
-      if (balls.length > 10) {
+      // Remove balls if there are too many
+      if (balls.length > 100) {
         const ballToRemove = balls.shift();
-        ballToRemove && World.remove(engine.world, ballToRemove);
+        ballToRemove && Matter.World.remove(engine.world, ballToRemove);
       }
-      const ball = Bodies.circle(
+
+      const ball = Matter.Bodies.circle(
         Math.random() * window.innerWidth,
-        Math.random() * window.innerHeight,
-        ballradius,
+        0,
+        ballRadius,
         {
           restitution: 0.9,
           render: {
             fillStyle:
-              ballcolors[Math.floor(Math.random() * ballcolors.length)],
+              ballColors[Math.floor(Math.random() * ballColors.length)],
           },
         }
       );
       balls.push(ball);
-      World.add(engine.world, ball);
-    }, 1000);
+      Matter.World.add(engine.world, ball);
+    }, 200);
 
     return () => {
       window.removeEventListener("resize", resizeHandler);
