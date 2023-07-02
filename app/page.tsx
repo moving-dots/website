@@ -16,7 +16,7 @@ export default function Home() {
       canvas: canvasRef.current || undefined,
       options: {
         // How can I make this canvas 100% width and height?
-        background: "red",
+        background: "transparent",
         wireframes: false,
       },
     });
@@ -69,21 +69,22 @@ export default function Home() {
       let numDotsX = Math.floor(gridWidth / distance);
       let numDotsY = Math.floor(gridHeight / distance);
 
-      const fakeGrid = Matter.Bodies.rectangle(
-        gridWidth / 2 + margin,
-        gridHeight / 2 + margin,
-        gridWidth,
-        gridHeight,
-        {
-          isStatic: true,
-          render: {
-            opacity: 0.6,
-            fillStyle: "blue",
-          },
-        }
-      );
+      // Create fake grid to test position of the dots
+      // const fakeGrid = Matter.Bodies.rectangle(
+      //   gridWidth / 2 + margin,
+      //   gridHeight / 2 + margin,
+      //   gridWidth,
+      //   gridHeight,
+      //   {
+      //     isStatic: true,
+      //     render: {
+      //       opacity: 0.6,
+      //       fillStyle: "blue",
+      //     },
+      //   }
+      // );
 
-      Matter.World.add(engine.world, fakeGrid);
+      // Matter.World.add(engine.world, fakeGrid);
 
       // Create background grid of dots
       for (let y = 0; y < numDotsY + 1; y++) {
