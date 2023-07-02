@@ -21,12 +21,12 @@ export default function Home() {
       },
     });
 
-    const distance = 40; // distance between dots
-    const dotRadius = 4; // radius of each dot
+    const distance = 32; // distance between dots
+    const dotRadius = 3; // radius of each dot
     const margin = 64 + dotRadius / 2; // margin around the canvas
 
     let balls: Matter.Body[] = [];
-    const ballRadius = 10; // radius of each ball
+    const ballRadius = 8; // radius of each ball
     const ballColors = [
       "#0444C1",
       "#FF4B4B",
@@ -136,18 +136,15 @@ export default function Home() {
         ballToRemove && Matter.World.remove(engine.world, ballToRemove);
       }
 
-      const ball = Matter.Bodies.circle(
-        Math.random() * window.innerWidth,
-        0,
-        ballRadius,
-        {
-          restitution: 0.9,
-          render: {
-            fillStyle:
-              ballColors[Math.floor(Math.random() * ballColors.length)],
-          },
-        }
-      );
+      let randomPosition =
+        Math.random() * (window.innerWidth / 1.5) + window.innerWidth / 6;
+
+      const ball = Matter.Bodies.circle(randomPosition, 0, ballRadius, {
+        restitution: 0.9,
+        render: {
+          fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
+        },
+      });
       balls.push(ball);
       Matter.World.add(engine.world, ball);
     }, 200);
