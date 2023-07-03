@@ -52,7 +52,7 @@ export default function Home() {
 
       <div className="absolute top-[122px] left-[64px] ">
         <h2 className="font-semibold text-title text-gray-300">
-          We make interfaces for the web
+          We make interfaces for the web.
         </h2>
       </div>
 
