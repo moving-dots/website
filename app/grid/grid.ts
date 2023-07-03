@@ -1,7 +1,7 @@
 import Matter from "matter-js";
 
 export const createGrid = (engine: Matter.Engine) => {
-  const distance = 32; // distance between dots
+  const distance = 56; // distance between dots
   const dotRadius = 3; // radius of each dot
   const margin = 64 + dotRadius / 2; // margin around the canvas
 
@@ -38,7 +38,7 @@ export const createGrid = (engine: Matter.Engine) => {
   }
 
   // Create fake grid to test position of the dots
-  const whiteOverlay1 = Matter.Bodies.rectangle(188, 82, 260, 60, {
+  const whiteOverlay1 = Matter.Bodies.rectangle(186, 64, 256, 48, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -46,7 +46,7 @@ export const createGrid = (engine: Matter.Engine) => {
     },
   });
 
-  const whiteOverlay2 = Matter.Bodies.rectangle(380, 148, 650, 60, {
+  const whiteOverlay2 = Matter.Bodies.rectangle(348, 122, 580, 48, {
     isSensor: true,
     isStatic: true,
     render: {
@@ -55,10 +55,10 @@ export const createGrid = (engine: Matter.Engine) => {
   });
 
   const whiteOverlay3 = Matter.Bodies.rectangle(
-    gridWidth - 64,
-    gridHeight + 46,
-    284,
-    60,
+    gridWidth - 52,
+    gridHeight + 62,
+    264,
+    48,
     {
       isSensor: true,
       isStatic: true,

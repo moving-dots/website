@@ -3,7 +3,7 @@ import Matter from "matter-js";
 export const dots = (engine: Matter.Engine) => {
   setInterval(() => {
     let balls: Matter.Body[] = [];
-    const ballRadius = 8; // radius of each ball
+    const ballRadius = 12; // radius of each ball
     const ballColors = [
       "#0444C1",
       "#FF4B4B",
@@ -20,7 +20,7 @@ export const dots = (engine: Matter.Engine) => {
     ];
 
     // Remove balls if there are too many
-    if (balls.length > 100) {
+    if (balls.length > 10) {
       const ballToRemove = balls.shift();
       ballToRemove && Matter.World.remove(engine.world, ballToRemove);
     }
@@ -34,7 +34,26 @@ export const dots = (engine: Matter.Engine) => {
         fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
       },
     });
-    balls.push(ball);
-    Matter.World.add(engine.world, ball);
-  }, 200);
+
+    const rect = Matter.Bodies.rectangle(
+      randomPosition,
+      0,
+      ballRadius * 1.8,
+      ballRadius * 1.8,
+      {
+        restitution: 0.9,
+        render: {
+          fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
+        },
+      }
+    );
+
+    const newObject = Math.random() > 0.5 ? ball : rect;
+
+    balls.push(newObject);
+
+    console.log(Math.random());
+
+    Matter.World.add(engine.world, newObject);
+  }, 400);
 };
