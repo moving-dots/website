@@ -1,7 +1,10 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Work_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const workSans = Work_Sans({
+  weight: ["400", "500", "600"],
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "Moving Dots",
@@ -15,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={workSans.className}>{children}</body>
     </html>
   );
 }

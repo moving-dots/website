@@ -11,23 +11,6 @@ export const createGrid = (engine: Matter.Engine) => {
   let numDotsX = Math.floor(gridWidth / distance);
   let numDotsY = Math.floor(gridHeight / distance);
 
-  // Create fake grid to test position of the dots
-  // const fakeGrid = Matter.Bodies.rectangle(
-  //   gridWidth / 2 + margin,
-  //   gridHeight / 2 + margin,
-  //   gridWidth,
-  //   gridHeight,
-  //   {
-  //     isStatic: true,
-  //     render: {
-  //       opacity: 0.6,
-  //       fillStyle: "blue",
-  //     },
-  //   }
-  // );
-
-  // Matter.World.add(engine.world, fakeGrid);
-
   // Create background grid of dots
   for (let y = 0; y < numDotsY + 1; y++) {
     const numDotsXModulo = y % 2 ? numDotsX : numDotsX + 1;
@@ -53,4 +36,37 @@ export const createGrid = (engine: Matter.Engine) => {
       Matter.World.add(engine.world, dot);
     }
   }
+
+  // Create fake grid to test position of the dots
+  const whiteOverlay1 = Matter.Bodies.rectangle(188, 82, 260, 60, {
+    isSensor: true,
+    isStatic: true,
+    render: {
+      fillStyle: "#fff",
+    },
+  });
+
+  const whiteOverlay2 = Matter.Bodies.rectangle(380, 148, 650, 60, {
+    isSensor: true,
+    isStatic: true,
+    render: {
+      fillStyle: "#fff",
+    },
+  });
+
+  const whiteOverlay3 = Matter.Bodies.rectangle(
+    gridWidth - 64,
+    gridHeight + 46,
+    284,
+    60,
+    {
+      isSensor: true,
+      isStatic: true,
+      render: {
+        fillStyle: "#fff",
+      },
+    }
+  );
+
+  Matter.World.add(engine.world, [whiteOverlay1, whiteOverlay2, whiteOverlay3]);
 };
