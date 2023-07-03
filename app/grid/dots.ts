@@ -3,7 +3,7 @@ import Matter from "matter-js";
 export const dots = (engine: Matter.Engine) => {
   setInterval(() => {
     let balls: Matter.Body[] = [];
-    const ballRadius = 12; // radius of each ball
+    const ballRadius = 17; // radius of each ball
     const ballColors = [
       "#0444C1",
       "#FF4B4B",
@@ -35,25 +35,27 @@ export const dots = (engine: Matter.Engine) => {
       },
     });
 
-    const rect = Matter.Bodies.rectangle(
-      randomPosition,
-      0,
-      ballRadius * 1.8,
-      ballRadius * 1.8,
-      {
-        restitution: 0.9,
-        render: {
-          fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
-        },
-      }
-    );
+    balls.push(ball);
 
-    const newObject = Math.random() > 0.5 ? ball : rect;
+    Matter.World.add(engine.world, ball);
 
-    balls.push(newObject);
+    // const rect = Matter.Bodies.rectangle(
+    //   randomPosition,
+    //   0,
+    //   ballRadius * 1.8,
+    //   ballRadius * 1.8,
+    //   {
+    //     restitution: 0.9,
+    //     render: {
+    //       fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
+    //     },
+    //   }
+    // );
 
-    console.log(Math.random());
+    // const newObject = Math.random() > 0.5 ? ball : rect;
 
-    Matter.World.add(engine.world, newObject);
+    // balls.push(newObject);
+
+    // Matter.World.add(engine.world, newObject);
   }, 400);
 };
