@@ -14,9 +14,12 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
       className="fixed flex md:justify-center md:items-center top-0 left-0 w-full h-full bg-menu z-10"
     >
       <div
-        className="absolute bottom-4 right-4 w-10 h-10 bg-red-50"
+        className="group absolute bottom-14 right-14 w-14 h-14 cursor-pointer"
         onClick={() => setIsMenuOpen(false)}
-      ></div>
+      >
+        <div className="absolute top-1/2 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 h-0.5 bg-white rounded rotate-45 group-hover:rotate-[40deg] transition-all" />
+        <div className="absolute top-1/2 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 h-0.5 bg-white rounded -rotate-45 group-hover:-rotate-[40deg] transition-all" />
+      </div>
       <div className="w-full flex flex-col gap-20 md:gap-0 md:flex-row max-w-[960px] mx-4 md:mx-6">
         <div className="md:flex-1 pt-8 md:pt-0">
           <h1 className="font-semibold text-white text-6xl md:text-7xl max-w-md">
