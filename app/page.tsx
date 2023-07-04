@@ -5,13 +5,12 @@ import Matter from "matter-js";
 import { createGrid } from "./grid/grid";
 import { dots } from "./grid/dots";
 import { setSizes } from "./grid/setSizes";
-import { Menu } from "./components/menu";
-import { AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const boxRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useLayoutEffect(() => {
     let engine = Matter.Engine.create({});
@@ -21,7 +20,6 @@ export default function Home() {
       engine: engine,
       canvas: canvasRef.current || undefined,
       options: {
-        // How can I make this canvas 100% width and height?
         background: "transparent",
         wireframes: false,
       },
@@ -30,7 +28,7 @@ export default function Home() {
     Matter.Runner.run(engine);
     Matter.Render.run(render);
 
-    // Set Canvas size + create grid + falling balls
+    // Set Canvas size + create grid + falling dots
     setSizes(render);
     createGrid(engine);
     dots(engine);
@@ -49,10 +47,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col min-w-full pos relative">
-      <AnimatePresence>
-        {isMenuOpen && <Menu setIsMenuOpen={setIsMenuOpen} />}
-      </AnimatePresence>
-      <div className="absolute top-4 left-4  md:top-10 md:left-16">
+      <div className="absolute top-4 left-4 md:top-10 md:left-16">
         <h1 className="font-semibold text-3xl md:text-title text-black">
           Moving Dots
         </h1>
@@ -68,7 +63,7 @@ export default function Home() {
       <div className="absolute bottom-6 right-6 md:bottom-[44px] md:right-16">
         <h2
           className="font-semibold text-3xl md:text-title text-black cursor-pointer"
-          onClick={() => setIsMenuOpen(true)}
+          onClick={() => router.push("/contact")}
         >
           Work with us
         </h2>

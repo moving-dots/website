@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import { Work_Sans } from "next/font/google";
 
 const workSans = Work_Sans({
@@ -13,13 +14,19 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <body className={workSans.className}>{children}</body>
+      <body className={workSans.className}>
+        {children}
+        {modal}
+      </body>
+      <Analytics />
     </html>
   );
 }
