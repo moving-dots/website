@@ -60,9 +60,9 @@ export default function Home() {
           We make interfaces for the web
         </h2>
       </div>
-      <div ref={boxRef} className="w-full h-full">
+      {/* <div ref={boxRef} className="w-full h-full">
         <canvas ref={canvasRef} />
-      </div>
+      </div> */}
       <div className="absolute bottom-[44px] right-[64px]">
         <h2
           className="font-semibold text-title text-black cursor-pointer"
