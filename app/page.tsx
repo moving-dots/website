@@ -47,13 +47,13 @@ export default function Home() {
 
   return (
     <main className="flex h-full flex-col min-w-full pos relative">
-      <div className="absolute top-4 left-4 md:top-10 md:left-16">
+      <div className="absolute top-6 left-4 md:top-10 md:left-16">
         <h1 className="font-semibold text-3xl md:text-title text-black">
           Moving Dots
         </h1>
       </div>
-      <div className="absolute top-[52px] left-4 md:top-[96px] md:left-16 ">
-        <h2 className="font-semibold text-3xl max-w-[300px] md:max-w-none md:text-title text-gray-300">
+      <div className="absolute top-[64px] left-4 md:top-[96px] md:left-16 ">
+        <h2 className="font-semibold text-3xl max-w-[300px] leading-relaxed md:leading-normal md:max-w-none md:text-title text-gray-300">
           We make interfaces for the web
         </h2>
       </div>

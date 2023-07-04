@@ -7,7 +7,7 @@ export const createGrid = (engine: Matter.Engine) => {
 
   // margin around the canvas
   const marginDesktop = 64 + dotRadius / 2;
-  const marginMobile = 32 + dotRadius / 2;
+  const marginMobile = 40 + dotRadius / 2;
   const margin = isMobile ? marginMobile : marginDesktop;
 
   const gridWidth = window.innerWidth - margin * 2; // width of the grid
@@ -42,36 +42,48 @@ export const createGrid = (engine: Matter.Engine) => {
     }
   }
 
-  // Create fake grid to test position of the dots
-  const whiteOverlay1 = Matter.Bodies.rectangle(186, 64, 256, 48, {
+  const options = {
     isSensor: true,
     isStatic: true,
     render: {
       fillStyle: "#fff",
     },
-  });
+  };
 
-  const whiteOverlay2 = Matter.Bodies.rectangle(348, 122, 580, 48, {
-    isSensor: true,
-    isStatic: true,
-    render: {
-      fillStyle: "#fff",
-    },
-  });
-
+  // Text overlays on Desktop
+  const whiteOverlay1 = Matter.Bodies.rectangle(186, 64, 256, 48, options);
+  const whiteOverlay2 = Matter.Bodies.rectangle(348, 122, 580, 48, options);
   const whiteOverlay3 = Matter.Bodies.rectangle(
     gridWidth - 52,
     gridHeight + 62,
     264,
     48,
-    {
-      isSensor: true,
-      isStatic: true,
-      render: {
-        fillStyle: "#fff",
-      },
-    }
+    options
   );
 
-  Matter.World.add(engine.world, [whiteOverlay1, whiteOverlay2, whiteOverlay3]);
+  // Text overlays on Mobile
+  const whiteOverlay1M = Matter.Bodies.rectangle(106, 36, 200, 40, options);
+  const whiteOverlay2M = Matter.Bodies.rectangle(146, 90, 380, 48, options);
+  const whiteOverlay3M = Matter.Bodies.rectangle(106, 130, 200, 48, options);
+  const whiteOverlay4M = Matter.Bodies.rectangle(
+    gridWidth - 40,
+    gridHeight + 42,
+    210,
+    48,
+    options
+  );
+
+  if (!isMobile)
+    Matter.World.add(engine.world, [
+      whiteOverlay1,
+      whiteOverlay2,
+      whiteOverlay3,
+    ]);
+  else
+    Matter.World.add(engine.world, [
+      whiteOverlay1M,
+      whiteOverlay2M,
+      whiteOverlay3M,
+      whiteOverlay4M,
+    ]);
 };
