@@ -5,20 +5,16 @@ export const dots = (engine: Matter.Engine) => {
 
   setInterval(() => {
     let balls: Matter.Body[] = [];
-    const ballRadius = isMobile ? 14 : 17; // radius of each ball
+    const ballRadius = isMobile ? 14 : 20; // radius of each ball
     const ballColors = [
-      "#0444C1",
-      "#FF4B4B",
-      "#2DE32A",
-      "#FFAD31",
-      "#4B95DA",
-      "#BC1D90",
-      "#FDA24E",
-      "#F5DF19",
-      "#CB1E5D",
-      "#B0D743",
-      "#6FF2A4",
-      "#3CD3E8",
+      "#FFCB30",
+      "#F9822C",
+      "#18CBDB",
+      "#16E7BB",
+      "#0382F3",
+      "#043BC9",
+      "#F42222",
+      "#FF9CE3",
     ];
 
     // Remove balls if there are too many
@@ -31,7 +27,7 @@ export const dots = (engine: Matter.Engine) => {
       Math.random() * (window.innerWidth / 1.5) + window.innerWidth / 6;
 
     const ball = Matter.Bodies.circle(randomPosition, 0, ballRadius, {
-      restitution: 0.3,
+      restitution: 0.2,
       render: {
         fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
       },
@@ -40,5 +36,5 @@ export const dots = (engine: Matter.Engine) => {
     balls.push(ball);
 
     Matter.World.add(engine.world, ball);
-  }, 300);
+  }, 200);
 };

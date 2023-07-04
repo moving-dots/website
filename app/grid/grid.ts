@@ -2,7 +2,7 @@ import Matter from "matter-js";
 
 export const createGrid = (engine: Matter.Engine) => {
   const isMobile = window.innerWidth < 480; // check if mobile
-  const distance = isMobile ? 48 : 56; // distance between dots
+  const distance = isMobile ? 48 : 46; // distance between dots
   const dotRadius = 3; // radius of each dot
 
   // margin around the canvas
