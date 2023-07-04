@@ -11,7 +11,6 @@ export default function Home() {
   const router = useRouter();
   const boxRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useLayoutEffect(() => {
     let engine = Matter.Engine.create({});
@@ -48,20 +47,22 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col min-w-full pos relative">
-      <div className="absolute top-[40px] left-[64px]">
-        <h1 className="font-semibold text-title text-black">Moving Dots</h1>
+      <div className="absolute top-4 left-4 md:top-10 md:left-16">
+        <h1 className="font-semibold text-3xl md:text-title text-black">
+          Moving Dots
+        </h1>
       </div>
-      <div className="absolute top-[96px] left-[64px] ">
-        <h2 className="font-semibold text-title text-gray-300">
+      <div className="absolute top-[52px] left-4 md:top-[96px] md:left-16 ">
+        <h2 className="font-semibold text-3xl max-w-[300px] md:text-title text-gray-300">
           We make interfaces for the web
         </h2>
       </div>
       <div ref={boxRef} className="w-full h-full">
         <canvas ref={canvasRef} />
       </div>
-      <div className="absolute bottom-[44px] right-[64px]">
+      <div className="absolute bottom-6 right-6 md:bottom-[44px] md:right-16">
         <h2
-          className="font-semibold text-title text-black cursor-pointer"
+          className="font-semibold text-3xl md:text-title text-black cursor-pointer"
           onClick={() => router.push("/contact")}
         >
           Work with us
