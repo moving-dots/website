@@ -1,9 +1,11 @@
 import Matter from "matter-js";
 
 export const dots = (engine: Matter.Engine) => {
+  const isMobile = window.innerWidth < 480;
+
   setInterval(() => {
     let balls: Matter.Body[] = [];
-    const ballRadius = 17; // radius of each ball
+    const ballRadius = isMobile ? 14 : 17; // radius of each ball
     const ballColors = [
       "#0444C1",
       "#FF4B4B",

@@ -1,9 +1,14 @@
 import Matter from "matter-js";
 
 export const createGrid = (engine: Matter.Engine) => {
-  const distance = 56; // distance between dots
+  const isMobile = window.innerWidth < 480; // check if mobile
+  const distance = isMobile ? 48 : 56; // distance between dots
   const dotRadius = 3; // radius of each dot
-  const margin = 64 + dotRadius / 2; // margin around the canvas
+
+  // margin around the canvas
+  const marginDesktop = 64 + dotRadius / 2;
+  const marginMobile = 32 + dotRadius / 2;
+  const margin = isMobile ? marginMobile : marginDesktop;
 
   const gridWidth = window.innerWidth - margin * 2; // width of the grid
   const gridHeight = window.innerHeight - margin * 2; // height of the grid
