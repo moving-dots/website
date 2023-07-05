@@ -63,16 +63,6 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
     );
 
     Matter.World.add(engine.world, floor);
-
-    const resizeHandler = () => {
-      // Clear the world
-      Matter.World.clear(engine.world, false);
-
-      // Reset world values
-      setSizes(render);
-    };
-
-    window.addEventListener("resize", resizeHandler);
   }, []);
 
   return (
@@ -83,7 +73,7 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
       className="fixed flex md:justify-center md:items-center top-0 left-0 w-full h-full bg-gray-100 z-10"
     >
       <div
-        className="group absolute z-10 bottom-6 right-6 md:bottom-14 md:right-14 w-14 h-14 cursor-pointer"
+        className="group absolute z-20 bottom-6 right-6 md:bottom-14 md:right-14 w-14 h-14 cursor-pointer"
         onClick={() => setIsMenuOpen(false)}
       >
         <div className="absolute top-1/2 left-1/2 w-12 -translate-x-1/2 -translate-y-1/2 h-0.5 bg-gray-900 rounded rotate-45 group-hover:rotate-[40deg] transition-all" />
