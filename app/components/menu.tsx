@@ -27,14 +27,14 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
     Matter.Runner.run(engine);
     Matter.Render.run(render);
 
-    // Set Canvas size + create grid + falling dots
+    // Set Canvas size
     setSizes(render);
 
     var stack = Matter.Composites.stack(
-      64,
+      0,
       0,
       20,
-      6,
+      4,
       0,
       0,
       function (x: number, y: number) {
