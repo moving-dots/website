@@ -11,8 +11,7 @@ module.exports = {
         title: ["2.2rem", "3rem"],
       },
       colors: {
-        menu: "#1B40C2",
-        "menu-title": "#829DFD",
+        hover: "#0047FF",
       },
     },
   },

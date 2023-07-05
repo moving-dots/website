@@ -120,7 +120,7 @@ export default function Home() {
         className="absolute bottom-6 right-6 md:bottom-[44px] md:right-16"
       >
         <button
-          className="font-semibold text-3xl md:text-title text-black"
+          className="font-semibold text-3xl md:text-title text-black hover:text-hover transition-colors"
           onClick={() => setIsMenuOpen(true)}
         >
           Work with us

@@ -2,6 +2,7 @@ import { FC, useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { setSizes } from "../grid/setSizes";
 import Matter from "matter-js";
+import { instagram, linkedIn, twitter } from "./social-icons";
 
 interface MenuProps {
   setIsMenuOpen: (isMenuOpen: boolean) => void;
@@ -88,7 +89,7 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
         <div className="mr-12">
           <div className="text-gray-400 text-xl mb-2">New business</div>
           <a
-            className="text-text-gray-900 text-xl"
+            className="text-text-gray-900 text-xl hover:text-hover transition-colors"
             href="mailto:hello@movingdots.xyz"
           >
             hello@movingdots.xyz
@@ -97,11 +98,22 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
             Join us
           </div>
           <a
-            className="text-text-gray-900 text-xl"
+            className="text-text-gray-900 text-xl hover:text-hover transition-colors"
             href="mailto:careers@movingdots.xyz"
           >
             careers@movingdots.xyz
           </a>
+          <div className="flex gap-8 mt-16">
+            <a href="https://twitter.com/moving__dots" target="_blank">
+              {twitter}
+            </a>
+            <a href="https://twitter.com/moving__dots" target="_blank">
+              {linkedIn}
+            </a>
+            <a href="https://www.instagram.com/moving__dots/" target="_blank">
+              {instagram}
+            </a>
+          </div>
         </div>
       </div>
       <div ref={boxRef} className="absolute top-0 left-0 w-full h-full">
