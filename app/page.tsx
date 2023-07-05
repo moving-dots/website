@@ -4,7 +4,6 @@ import React, { useLayoutEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import { createGrid } from "./grid/grid";
 import { dots } from "./grid/dots";
-import { setSizes } from "./grid/setSizes";
 import { useRouter } from "next/navigation";
 import { Menu } from "./components/menu";
 import { AnimatePresence } from "framer-motion";
@@ -20,7 +19,8 @@ export default function Home() {
   const text3Ref = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
-    let engine = Matter.Engine.create({});
+    let engine = Matter.Engine.create();
+
     let render = Matter.Render.create({
       element: boxRef.current || undefined,
       engine: engine,
@@ -28,8 +28,12 @@ export default function Home() {
       options: {
         background: "transparent",
         wireframes: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
       },
     });
+
+    Matter.Render.setPixelRatio(render, window.devicePixelRatio || 1);
 
     Matter.Runner.run(engine);
     Matter.Render.run(render);
@@ -55,8 +59,7 @@ export default function Home() {
     };
     const textSizes = [text1Size, text2Size, text3Size];
 
-    // Set Canvas size + create grid + falling dots
-    setSizes(render);
+    // Create grid + falling dots
     createGrid(engine, textSizes);
     dots(engine);
 
@@ -83,9 +86,10 @@ export default function Home() {
 
       // Clear the world
       Matter.World.clear(engine.world, false);
+      render.options.width = window.innerWidth;
+      render.options.height = window.innerHeight;
 
       // Reset world values
-      setSizes(render);
       createGrid(engine, textSizes);
     };
 

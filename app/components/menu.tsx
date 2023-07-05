@@ -1,6 +1,5 @@
 import { FC, useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { setSizes } from "../grid/setSizes";
 import Matter from "matter-js";
 import { instagram, linkedIn, twitter } from "./social-icons";
 
@@ -22,14 +21,15 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
       options: {
         background: "transparent",
         wireframes: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
       },
     });
 
+    Matter.Render.setPixelRatio(render, window.devicePixelRatio || 1);
+
     Matter.Runner.run(engine);
     Matter.Render.run(render);
-
-    // Set Canvas size
-    setSizes(render);
 
     var stack = Matter.Composites.stack(
       0,
