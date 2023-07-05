@@ -1,8 +1,11 @@
 import Matter from "matter-js";
 
-export const createGrid = (engine: Matter.Engine) => {
+export const createGrid = (
+  engine: Matter.Engine,
+  textSizes: { x: number; y: number; width: number; height: number }[]
+) => {
   const isMobile = window.innerWidth < 480; // check if mobile
-  const distance = isMobile ? 48 : 46; // distance between dots
+  const distance = isMobile ? 48 : 48; // distance between dots
   const dotRadius = 3; // radius of each dot
 
   // margin around the canvas
@@ -51,13 +54,25 @@ export const createGrid = (engine: Matter.Engine) => {
   };
 
   // Text overlays on Desktop
-  const whiteOverlay1 = Matter.Bodies.rectangle(186, 64, 256, 48, options);
-  const whiteOverlay2 = Matter.Bodies.rectangle(348, 122, 580, 48, options);
+  const whiteOverlay1 = Matter.Bodies.rectangle(
+    textSizes[0].x + textSizes[0].width / 2,
+    textSizes[0].y + textSizes[0].height / 2,
+    textSizes[0].width || 0,
+    textSizes[0].height || 0,
+    options
+  );
+  const whiteOverlay2 = Matter.Bodies.rectangle(
+    textSizes[1].x + textSizes[1].width / 2,
+    textSizes[1].y + textSizes[1].height / 2,
+    textSizes[1].width || 0,
+    textSizes[1].height || 0,
+    options
+  );
   const whiteOverlay3 = Matter.Bodies.rectangle(
-    gridWidth - 52,
-    gridHeight + 62,
-    264,
-    48,
+    textSizes[2].x + textSizes[2].width / 2,
+    textSizes[2].y + textSizes[2].height / 2,
+    textSizes[2].width || 0,
+    textSizes[2].height || 0,
     options
   );
 

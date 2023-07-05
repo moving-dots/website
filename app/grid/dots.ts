@@ -27,7 +27,7 @@ export const dots = (engine: Matter.Engine) => {
       Math.random() * (window.innerWidth / 1.5) + window.innerWidth / 6;
 
     const ball = Matter.Bodies.circle(randomPosition, 0, ballRadius, {
-      restitution: 0.2,
+      restitution: 0.3,
       render: {
         fillStyle: ballColors[Math.floor(Math.random() * ballColors.length)],
       },
@@ -36,5 +36,5 @@ export const dots = (engine: Matter.Engine) => {
     balls.push(ball);
 
     Matter.World.add(engine.world, ball);
-  }, 200);
+  }, 280);
 };
