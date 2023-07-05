@@ -1,7 +1,6 @@
 import { FC, useLayoutEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { setSizes } from "../grid/setSizes";
-import { dots } from "../grid/dots";
 import Matter from "matter-js";
 
 interface MenuProps {
@@ -30,7 +29,40 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
 
     // Set Canvas size + create grid + falling dots
     setSizes(render);
-    dots(engine);
+
+    var stack = Matter.Composites.stack(
+      64,
+      0,
+      20,
+      6,
+      0,
+      0,
+      function (x: number, y: number) {
+        const randomSize = Math.floor(Math.random() * 100);
+        return Matter.Bodies.circle(x, y, randomSize, {
+          render: {
+            fillStyle: "#fff",
+          },
+        });
+      }
+    );
+
+    Matter.Composite.add(engine.world, stack);
+
+    const floor = Matter.Bodies.rectangle(
+      window.innerWidth / 2,
+      window.innerHeight + 10,
+      window.innerWidth,
+      20,
+      {
+        isStatic: true,
+        render: {
+          fillStyle: "#fff",
+        },
+      }
+    );
+
+    Matter.World.add(engine.world, floor);
 
     const resizeHandler = () => {
       // Clear the world

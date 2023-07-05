@@ -1,21 +1,22 @@
 import Matter from "matter-js";
 
+export const ballColors = [
+  "#FFCB30",
+  "#F9822C",
+  "#18CBDB",
+  "#16E7BB",
+  "#0382F3",
+  "#043BC9",
+  "#F42222",
+  "#FF9CE3",
+];
+
 export const dots = (engine: Matter.Engine) => {
   const isMobile = window.innerWidth < 480;
 
   setInterval(() => {
     let balls: Matter.Body[] = [];
-    const ballRadius = isMobile ? 14 : 20; // radius of each ball
-    const ballColors = [
-      "#FFCB30",
-      "#F9822C",
-      "#18CBDB",
-      "#16E7BB",
-      "#0382F3",
-      "#043BC9",
-      "#F42222",
-      "#FF9CE3",
-    ];
+    const ballRadius = isMobile ? 14 : 18; // radius of each ball
 
     // Remove balls if there are too many
     if (balls.length > 10) {
