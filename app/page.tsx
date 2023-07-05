@@ -8,6 +8,7 @@ import { setSizes } from "./grid/setSizes";
 import { useRouter } from "next/navigation";
 import { Menu } from "./components/menu";
 import { AnimatePresence } from "framer-motion";
+import va from "@vercel/analytics";
 
 export default function Home() {
   const router = useRouter();
@@ -121,7 +122,10 @@ export default function Home() {
       >
         <button
           className="font-semibold text-3xl md:text-title text-black hover:text-hover transition-colors"
-          onClick={() => setIsMenuOpen(true)}
+          onClick={() => {
+            va.track("Open Menu");
+            setIsMenuOpen(true);
+          }}
         >
           Work with us
         </button>
