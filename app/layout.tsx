@@ -9,7 +9,8 @@ const workSans = Work_Sans({
 
 export const metadata = {
   title: "Moving Dots",
-  description: "Moving dots on the internet.",
+  description:
+    "Design and Engineering studio based in London. We build digital products and services for the web, mobile and beyond.",
 };
 
 export default function RootLayout({
