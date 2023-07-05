@@ -107,7 +107,10 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
             <a href="https://twitter.com/moving__dots" target="_blank">
               {twitter}
             </a>
-            <a href="https://twitter.com/moving__dots" target="_blank">
+            <a
+              href="https://www.linkedin.com/company/moving-dots-studio/"
+              target="_blank"
+            >
               {linkedIn}
             </a>
             <a href="https://www.instagram.com/moving__dots/" target="_blank">
