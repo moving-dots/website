@@ -83,8 +83,6 @@ export default function Home() {
       // Clear the world
       Matter.World.clear(engine.world, false);
 
-      console.log(textSizes);
-
       // Reset world values
       setSizes(render);
       createGrid(engine, textSizes);

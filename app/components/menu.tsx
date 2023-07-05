@@ -12,7 +12,7 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useLayoutEffect(() => {
-    let engine = Matter.Engine.create({});
+    let engine = Matter.Engine.create();
 
     let render = Matter.Render.create({
       element: boxRef.current || undefined,
@@ -34,12 +34,12 @@ export const Menu: FC<MenuProps> = ({ setIsMenuOpen }) => {
       0,
       0,
       20,
-      4,
+      20,
       0,
       0,
       function (x: number, y: number) {
-        const randomSize = Math.floor(Math.random() * 100);
-        return Matter.Bodies.circle(x, y, randomSize, {
+        return Matter.Bodies.circle(x, y, Matter.Common.random(10, 110), {
+          restitution: 0.2,
           render: {
             fillStyle: "#fff",
           },
